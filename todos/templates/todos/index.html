@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'todos/one.css' %}" type="text/css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center h-100 my-3 my-md-0">
+        <div class="outer pt-md-5 pr-md-5 pl-md-5 pb-md-5 my-5 my-md-0 my-auto">
+            <div style="width: fit-content; " class="mx-auto mb-4 d-flex align-items-center" >
+                <i class="fa-solid fa-square-check mr-3" style="font-size: 4em; color: #0379FF"></i>
+                <h1 style="width: fit-content;color: #3275B9; display: inline; margin-bottom: 0" >My Todo-s</h1>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="outerone mx-auto row p-3 mb-5" style="background-color:white">
+                    <input type="text" name="title" placeholder="Add new task" style="border:none;" class="col-12 col-sm-7 col-md-9 mb-3 mb-md-0 addnew">
+                    <input type="date" name="date" class="col-sm-3 col-md-2  mb-3 mb-md-0 date" style="border: none;" >
+                    <button type="submit" name="addTask" class="btn btn-small col-sm-2 col-md-1 " style=" background-color: #0379FF; color: white;">Add</button>        
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <select name="categories" id="cars" class="col-md-3 mb-3 mb-md-0" style="height: 2.4em;" >
+                        {% for category in categories %}
+                        <option name="{{category.name}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <i class="fa-solid fa-circle-plus mx-2" style="font-size: 2em; color: #0379FF;" id="addBtn" ></i>
+                    <i class="fa-solid fa-circle-minus" style="font-size: 2em; color: #0379FF;" id="deleteBtn" ></i>
+                </div>
+
+                <div class="outerone mx-auto  p-3 mb-5 mt-3 addCat" style="background-color:white">
+                    <input type="text" name="name" placeholder="Add new category..." style="border:none;" class="col-12 col-sm-7 col-md-9 mb-3 mb-md-0 addnew">
+                    <button type="submit" name="addCategory" class="btn btn-small col-sm-5 col-md-3 " style=" background-color: #0379FF; color: white;">Add Category</button>        
+                </div>
+                <div class="deleteCat">
+                    <div class="text-right my-2">
+                        <button class="btn btn-small" name="deleteCategory" type="submit">Delete</button>
+                    </div>
+                    
+                    {% for cat in categories %}
+                        <div class="Container row  d-flex align-items-center mb-5 mb-md-4" >
+                            <div class="col-12 col-md-8 text-left d-flex align-items-center form-check">
+    
+                                <input type="checkbox" class="form-check-input my-auto" name="checkedboxCat" value="{{cat.id}}" />
+                                
+                                <label for=""  class="form-check-label" style="margin-left: 20px;font-size:x-large">{{cat.name}}</label> 
+                            </div>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+            <hr class="mt-5 mb-5"/>
+    
+            <div style="min-width: 50%; " class="col-md-6 ml-auto text-left text-md-right mb-5">
+                <div>
+
+                    <label for="cars">Filter</label>
+                    <select name="cars" id="cars" class="col-md-3 mb-3 mb-md-0" style="height: 2.4em;" >
+                        <option value="volvo">All</option>
+                        <option value="saab">Saab</option>
+                        <option value="opel">Opel</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <label for="cars">Sort</label>
+                    <select name="sort" id="cars" class="col-md-3 mb-3 mb-md-0" style="height: 2.4em;"">
+                        <option value="due_date">Due date</option>
+                        <option value="created">Created date</option>
+                    </select>
+                </div>
+                <button class="btn btn-small mt-3" type="submit">Apply</button>
+            </div>
+            <div class="text-right mb-3">
+                <button class=" btn btn-small mb-3 mb-md-0 mr-3 " type="submit" name="deleteTask" >Delete</button>
+            </div>
+            <div >
+                {% for todo in todos %}
+                    <div class="Container row d-flex align-items-center mb-5 mb-md-4">
+                        <div class="col-12 col-md-8 text-left d-flex align-items-center form-check">
+
+                            <input type="checkbox" class="form-check-input my-auto" name="checkedbox" value="{{todo.id}}" />
+                            
+                            <label for=""  class="form-check-label" style="margin-left: 20px;font-size:x-large">{{todo.title}}</label> 
+                        </div>
+                        
+                        <div class="col-12 col-md-4 d-flex align-items-center mt-4 mt-md-0">
+
+                            <button class="ml-md-auto btn btn-small mr-3 d-block " style="border: 2px solid #0379FF; color: #0379FF; background-color: white;">{{todo.category}}</button>
+                            <span class="ml-2" style="color: #8f8d8d;">{{todo.due_date}}</span>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+                
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'todos/script.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

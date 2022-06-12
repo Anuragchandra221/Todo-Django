@@ -1,0 +1,47 @@
+html{
+  overflow-x: hidden;
+}
+body
+{
+    height: 100vh;
+}
+.outer
+{
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+.outerone
+{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        text-align: center;     
+} 
+.addnew:focus{
+  outline: none;
+}
+.addCat{
+  display: none;
+}
+.deleteCat{
+  display: none;
+}
+input[type='checkbox'] {
+  /* -webkit-appearance:none; */
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #0379FF;
+} 
+
+  @media only screen and (max-width: 700px) {
+    .addnew{
+      height: 2.5em;
+    }
+    .outer
+    {
+      width: 90%;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0,0), 0 0 0 0 rgba(0, 0, 0, 0);
+      text-align: center;     
+    }
+  }
